@@ -1,0 +1,10 @@
+package-as: Spoils
+
+enable-nolib-creation: no
+
+ignore:
+  - README.md
+  - LICENSE
+  - .github
+  - .gitignore
+  - .pkgmeta
