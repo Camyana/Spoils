@@ -1,7 +1,7 @@
 ## Interface: 120100
 ## Title: Spoils
 ## Notes: Animated floating loot cards at your cursor or a fixed screen anchor.
-## Version: 0.4.0
+## Version: 0.4.1
 ## Author: Camyana
 ## SavedVariables: SpoilsDB
 ## IconTexture: Interface\AddOns\Spoils\Media\Icon
@@ -9,9 +9,7 @@
 ## X-License: MIT
 ## X-Website: https://github.com/Camyana/Spoils
 
-# Uncomment and set the numeric project ID once the CurseForge project exists.
-# The release workflow reads it from here to upload builds automatically.
-# ## X-Curse-Project-ID: 000000
+## X-Curse-Project-ID: 1656974
 
 Core.lua
 Cards.lua
