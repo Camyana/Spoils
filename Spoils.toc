@@ -4,7 +4,7 @@
 ## Version: 0.4.0
 ## Author: Camyana
 ## SavedVariables: SpoilsDB
-## IconTexture: Interface\Icons\INV_Misc_Bag_10
+## IconTexture: Interface\AddOns\Spoils\Media\Icon
 ## Category-enUS: User Interface
 ## X-License: MIT
 ## X-Website: https://github.com/Camyana/Spoils

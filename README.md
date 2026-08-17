@@ -1,7 +1,9 @@
+<img src="design/curseforge-avatar.png" alt="Spoils" width="128" align="right">
+
 # Spoils
 
-Animated floating loot cards for World of Warcraft. When you loot something, a card
-fans out from your cursor — icon, name, and stack count, tinted by item quality —
+Your loot, shown as animated cards that float up around your cursor. Each card
+carries the item icon, its name in the item quality colour, and the stack size,
 then drifts and fades away.
 
 > **CurseForge:** _not published yet._ Replace this line with
