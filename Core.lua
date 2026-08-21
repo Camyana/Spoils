@@ -173,11 +173,36 @@ end
 -- Money parsing
 --------------------------------------------------------------------------------
 
+-- Which money globals exist has changed between expansions, so resolve them
+-- defensively and fall back to plain English rather than concatenating a nil.
+-- GOLD_AMOUNT and friends hold "%d Gold", so reuse the same escaping as the
+-- loot patterns to turn them into "(%d+) Gold".
+local function AmountPattern(template, fallback)
+	local src = (type(template) == "string" and template ~= "") and template or fallback
+	local p = src:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
+	return (p:gsub("%%%%d", "(%%d+)"))
+end
+
+local GOLD_PATTERN   = AmountPattern(GOLD_AMOUNT,   "%d Gold")
+local SILVER_PATTERN = AmountPattern(SILVER_AMOUNT, "%d Silver")
+local COPPER_PATTERN = AmountPattern(COPPER_AMOUNT, "%d Copper")
+
 local function ParseMoney(msg)
-	local g = tonumber(msg:match("(%d+) " .. GOLD))   or 0
-	local s = tonumber(msg:match("(%d+) " .. SILVER)) or 0
-	local c = tonumber(msg:match("(%d+) " .. COPPER)) or 0
-	return g * 10000 + s * 100 + c
+	local g = tonumber(msg:match(GOLD_PATTERN))   or 0
+	local s = tonumber(msg:match(SILVER_PATTERN)) or 0
+	local c = tonumber(msg:match(COPPER_PATTERN)) or 0
+	local copper = g * 10000 + s * 100 + c
+
+	-- Fall back to the short symbol form ("119g 70s 86c") if the long form did
+	-- not match, so an unexpected locale string yields a wrong-free zero at worst.
+	if copper == 0 then
+		g = tonumber(msg:match("(%d+)g")) or 0
+		s = tonumber(msg:match("(%d+)s")) or 0
+		c = tonumber(msg:match("(%d+)c")) or 0
+		copper = g * 10000 + s * 100 + c
+	end
+
+	return copper
 end
 
 --------------------------------------------------------------------------------

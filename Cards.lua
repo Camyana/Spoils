@@ -517,7 +517,10 @@ function Cards:Push(data)
 	EnsureDriver()
 
 	if db.playSound and (data.quality or 0) >= (db.soundQuality or 4) then
-		pcall(PlaySound, SOUNDKIT.UI_EPICLOOT_TOAST, "Master")
+		-- Resolve before calling: an index on a missing SOUNDKIT would error
+		-- outside the pcall, not inside it.
+		local sound = SOUNDKIT and SOUNDKIT.UI_EPICLOOT_TOAST
+		if sound then pcall(PlaySound, sound, "Master") end
 	end
 end
 

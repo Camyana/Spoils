@@ -110,7 +110,9 @@ local function GetMover()
 		end
 	end)
 
-	tinsert(UISpecialFrames, "SpoilsAnchorFrame")
+	if UISpecialFrames then
+		tinsert(UISpecialFrames, "SpoilsAnchorFrame")
+	end
 	return mover
 end
 
@@ -165,7 +167,12 @@ local function BuildSettings()
 		local setting = Settings.RegisterProxySetting(category, "SPOILS_" .. key,
 			Settings.VarType.Number, label, ns.defaults[key], Get(key), Set(key))
 		local opts = Settings.CreateSliderOptions(minV, maxV, step)
-		opts:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right, formatter)
+		local labelPos = MinimalSliderWithSteppersMixin
+			and MinimalSliderWithSteppersMixin.Label
+			and MinimalSliderWithSteppersMixin.Label.Right
+		if labelPos then
+			opts:SetLabelFormatter(labelPos, formatter)
+		end
 		Settings.CreateSlider(category, setting, opts, tooltip)
 	end
 
